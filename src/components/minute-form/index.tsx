@@ -43,7 +43,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
-import { getMisteriosByDayOfWeek } from '@/utils/mappers';
+import { getMisteriesByDayOfWeek } from '@/utils/mappers';
 import { minuteFormSchema } from './_schemas/minute-form.schema';
 import { MinuteFormData } from './types/minute-form-data.type';
 
@@ -71,7 +71,7 @@ export function MinuteForm() {
   // Determine mistérios based on the day of the week
   const dataReuniao = form.watch('dataReuniao');
   const misterios = dataReuniao
-    ? getMisteriosByDayOfWeek(dataReuniao)
+    ? getMisteriesByDayOfWeek(dataReuniao)
     : 'Não definido';
 
   // Handle form submission

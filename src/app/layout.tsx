@@ -8,7 +8,10 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'Legião de Maria',
+  title: {
+    template: '%s - Legião de Maria',
+    default: 'Legião de Maria',
+  },
   description:
     'Sistema feito para facilitar o processo de escrita da Ata, Relatórios e outras atividades da Legião de Maria',
 };

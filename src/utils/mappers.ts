@@ -8,7 +8,7 @@ const misteriesMapper = {
   6: 'Mistérios Gozosos',
 };
 
-export function getMisteriosByDayOfWeek(date: Date) {
+export function getMisteriesByDayOfWeek(date: Date) {
   const dayOfWeek = date.getDay() as keyof typeof misteriesMapper;
 
   return misteriesMapper[dayOfWeek];
