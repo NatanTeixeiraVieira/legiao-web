@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Legião Web
 
-## Getting Started
+## Módulo CÚRIA
 
-First, run the development server:
+### ATA
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+#### Número da ata
+- Salvar futuramente os números para ir dando sequência, mas sempre deixando o usuário alterar
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### Calendário para selecionar quando ocorreu a reunião
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+#### Paróquia 
+- Obter automático, mas deixar alterar
+- Default: Paróquia Santos Anjos
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+#### Cúria
+- Obter automático, mas deixar alterar
+- Default: Cúria juvenil Nossa Senhora Rainha dos Anjos
 
-## Learn More
+#### Data e hora de início, catena e fim
 
-To learn more about Next.js, take a look at the following resources:
+#### Mistérios
+- Obter automático com base no dia da semana da reunião
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### Leitura Espiritual
+ - Número da página
+ - Capítulo
+ - Item
+ - Nome e gênero de quem leu
+ - Título
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#### Ata foi lida, aprovada e assinada?
+- Selecionar quais opções são verdadeiras
+- Caso nenhuma seja, mostrar que não houve leitura da Ata e campo para motivo
 
-## Deploy on Vercel
+#### Quantos estavam presentes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+#### Nome de quem fez a acolhida
+
+
+#### Nomeações
+- Nome
+- Nome do Praesidium
+- Cargo de nomeação
+
+
+#### Relatório da tesouraria
+- Saldo anterior
+- Coleta do dia
+- Dia da última reunião (verificar possibilidade de obter automático conforme as atas)
+- Contribuição dos Praesidia (nome, valor)
+- Saldo final
+- Despesa (nome, valor)
+
+#### Relatório
+- Nome do Praesidium
+- Número do relatório
+- Mistérios do terço contemplados
+- Rosários
+- Outras orações (valor, nome da oração) (opcional)
+- Total de horas de trabalhos (adicionar calculadora de horas)
+- Convites feitos 
+- Convites aceitos
+- Total de contatos (Adultos, jovens, adolescentes e crianças)
+
+- Dar opção de adicionar mais de um relatório
+- Dar opção de desativar algumas das opções
+
+#### Data prevista da próxima reunião
+
+#### Praesidium que apresentará o próximo relatório
+- Verificar possibilidade de ir pegando automático conforme ordem definida 
+
+#### Alocução
+- Quem fez
+- Mensagem
+- De onde foi retirado (opcional)
