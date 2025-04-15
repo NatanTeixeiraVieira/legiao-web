@@ -1,4 +1,4 @@
-import { MinuteForm } from '@/components/minute-form';
+import { MinuteForm } from '@/app/curia/minute/_components/minute-form';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
