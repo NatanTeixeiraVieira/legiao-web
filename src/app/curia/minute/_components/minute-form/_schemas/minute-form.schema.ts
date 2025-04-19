@@ -1,128 +1,122 @@
 import { z } from 'zod';
 
 export const minuteFormSchema = z.object({
-  numeroAta: z.string().min(1, { message: 'Número da ata é obrigatório' }),
-  dataReuniao: z.date({ required_error: 'Data da reunião é obrigatória' }),
-  paroquia: z.string().min(1, { message: 'Paróquia é obrigatória' }),
-  curia: z.string().min(1, { message: 'Cúria é obrigatória' }),
-  horaInicio: z.string().min(1, { message: 'Hora de início é obrigatória' }),
-  horaCatena: z.string().min(1, { message: 'Hora da catena é obrigatória' }),
-  horaFim: z.string().min(1, { message: 'Hora de fim é obrigatória' }),
-  leituraEspiritual: z.object({
-    pagina: z.string().min(1, { message: 'Número da página é obrigatório' }),
-    capitulo: z.string().min(1, { message: 'Capítulo é obrigatório' }),
-    item: z.string().min(1, { message: 'Item é obrigatório' }),
-    leitorNome: z.string().min(1, { message: 'Nome do leitor é obrigatório' }),
-    leitorGenero: z.enum(['masculino', 'feminino']),
-    titulo: z.string().min(1, { message: 'Título é obrigatório' }),
+  minuteNumber: z.string().min(1, { message: 'Minute number is required' }),
+  meetingDate: z.date({ required_error: 'Meeting date is required' }),
+  parish: z.string().min(1, { message: 'Parish is required' }),
+  curia: z.string().min(1, { message: 'Curia is required' }),
+  startTime: z.string().min(1, { message: 'Start time is required' }),
+  catenaTime: z.string().min(1, { message: 'Catena time is required' }),
+  endTime: z.string().min(1, { message: 'End time is required' }),
+  spiritualReading: z.object({
+    page: z.string().min(1, { message: 'Page number is required' }),
+    chapter: z.string().min(1, { message: 'Chapter is required' }),
+    item: z.string().min(1, { message: 'Item is required' }),
+    readerName: z.string().min(1, { message: 'Reader name is required' }),
+    readerGender: z.enum(['male', 'female']),
+    title: z.string().min(1, { message: 'Title is required' }),
   }),
-  statusAta: z.object({
-    lida: z.boolean().default(false),
-    aprovada: z.boolean().default(false),
-    assinada: z.boolean().default(false),
-    motivoNaoLeitura: z.string().optional(),
+  minuteStatus: z.object({
+    read: z.boolean().default(false),
+    approved: z.boolean().default(false),
+    signed: z.boolean().default(false),
+    reasonNotRead: z.string().optional(),
   }),
-  presentes: z
+  attendees: z.string().min(1, { message: 'Number of attendees is required' }),
+  welcome: z
     .string()
-    .min(1, { message: 'Número de presentes é obrigatório' }),
-  acolhida: z
-    .string()
-    .min(1, { message: 'Nome de quem fez a acolhida é obrigatório' }),
-  nomeacoes: z
+    .min(1, { message: 'Name of the person who gave the welcome is required' }),
+  appointments: z
     .array(
       z.object({
-        nome: z.string().min(1, { message: 'Nome é obrigatório' }),
+        name: z.string().min(1, { message: 'Name is required' }),
         praesidium: z
           .string()
-          .min(1, { message: 'Nome do Praesidium é obrigatório' }),
-        cargo: z.string().min(1, { message: 'Cargo é obrigatório' }),
+          .min(1, { message: 'Praesidium name is required' }),
+        position: z.string().min(1, { message: 'Position is required' }),
       }),
     )
     .optional(),
-  tesouraria: z.object({
-    saldoAnterior: z
+  treasury: z.object({
+    previousBalance: z
       .string()
-      .min(1, { message: 'Saldo anterior é obrigatório' }),
-    coletaDia: z.string().min(1, { message: 'Coleta do dia é obrigatória' }),
-    dataUltimaReuniao: z.date({
-      required_error: 'Data da última reunião é obrigatória',
+      .min(1, { message: 'Previous balance is required' }),
+    dailyCollection: z
+      .string()
+      .min(1, { message: 'Daily collection is required' }),
+    lastMeetingDate: z.date({
+      required_error: 'Last meeting date is required',
     }),
-    contribuicoes: z.array(
+    contributions: z.array(
       z.object({
         praesidium: z
           .string()
-          .min(1, { message: 'Nome do Praesidium é obrigatório' }),
-        valor: z.string().min(1, { message: 'Valor é obrigatório' }),
+          .min(1, { message: 'Praesidium name is required' }),
+        amount: z.string().min(1, { message: 'Amount is required' }),
       }),
     ),
-    despesas: z.array(
+    expenses: z.array(
       z.object({
-        nome: z.string().min(1, { message: 'Nome da despesa é obrigatório' }),
-        valor: z.string().min(1, { message: 'Valor é obrigatório' }),
+        name: z.string().min(1, { message: 'Expense name is required' }),
+        amount: z.string().min(1, { message: 'Amount is required' }),
       }),
     ),
-    saldoFinal: z.string().min(1, { message: 'Saldo final é obrigatório' }),
+    finalBalance: z.string().min(1, { message: 'Final balance is required' }),
   }),
-  relatorios: z.array(
+  reports: z.array(
     z.object({
-      praesidium: z
+      praesidium: z.string().min(1, { message: 'Praesidium name is required' }),
+      number: z.string().min(1, { message: 'Report number is required' }),
+      mysteries: z
         .string()
-        .min(1, { message: 'Nome do Praesidium é obrigatório' }),
-      numero: z
+        .min(1, { message: 'Contemplated mysteries are required' }),
+      rosaries: z
         .string()
-        .min(1, { message: 'Número do relatório é obrigatório' }),
-      misterios: z
-        .string()
-        .min(1, { message: 'Mistérios contemplados é obrigatório' }),
-      rosarios: z
-        .string()
-        .min(1, { message: 'Número de rosários é obrigatório' }),
-      outrasOracoes: z
+        .min(1, { message: 'Number of rosaries is required' }),
+      otherPrayers: z
         .array(
           z.object({
-            nome: z
-              .string()
-              .min(1, { message: 'Nome da oração é obrigatório' }),
-            valor: z.string().min(1, { message: 'Valor é obrigatório' }),
+            name: z.string().min(1, { message: 'Prayer name is required' }),
+            amount: z.string().min(1, { message: 'Amount is required' }),
           }),
         )
         .optional(),
-      horasTrabalho: z
+      workHours: z
         .string()
-        .min(1, { message: 'Total de horas é obrigatório' }),
-      convitesFeitos: z
+        .min(1, { message: 'Total work hours are required' }),
+      invitationsMade: z
         .string()
-        .min(1, { message: 'Convites feitos é obrigatório' }),
-      convitesAceitos: z
+        .min(1, { message: 'Invitations made are required' }),
+      invitationsAccepted: z
         .string()
-        .min(1, { message: 'Convites aceitos é obrigatório' }),
-      contatosAdultos: z
+        .min(1, { message: 'Invitations accepted are required' }),
+      adultContacts: z
         .string()
-        .min(1, { message: 'Contatos com adultos é obrigatório' }),
-      contatosJovens: z
+        .min(1, { message: 'Adult contacts are required' }),
+      youthContacts: z
         .string()
-        .min(1, { message: 'Contatos com jovens é obrigatório' }),
-      contatosAdolescentes: z
+        .min(1, { message: 'Youth contacts are required' }),
+      adolescentContacts: z
         .string()
-        .min(1, { message: 'Contatos com adolescentes é obrigatório' }),
-      contatosCriancas: z
+        .min(1, { message: 'Adolescent contacts are required' }),
+      childContacts: z
         .string()
-        .min(1, { message: 'Contatos com crianças é obrigatório' }),
+        .min(1, { message: 'Child contacts are required' }),
     }),
   ),
-  proximaReuniao: z.date({
-    required_error: 'Data da próxima reunião é obrigatória',
+  nextMeeting: z.date({
+    required_error: 'Next meeting date is required',
   }),
-  proximoRelatorio: z
+  nextReport: z
     .string()
-    .min(1, { message: 'Praesidium do próximo relatório é obrigatório' }),
-  alocucao: z.object({
-    autor: z
+    .min(1, { message: 'Praesidium for the next report is required' }),
+  allocution: z.object({
+    author: z
       .string()
-      .min(1, { message: 'Nome de quem fez a alocução é obrigatório' }),
-    mensagem: z
-      .string()
-      .min(1, { message: 'Mensagem da alocução é obrigatória' }),
-    fonte: z.string().optional(),
+      .min(1, {
+        message: 'Name of the person who gave the allocution is required',
+      }),
+    message: z.string().min(1, { message: 'Allocution message is required' }),
+    source: z.string().optional(),
   }),
 });
