@@ -1,12 +1,13 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { MinuteTextPreview } from '../minute-text-preview';
 import Appointments from './_components/appointments';
 import GeneralInformations from './_components/general-informations';
 import Reports from './_components/reports';
@@ -17,6 +18,7 @@ import { MinuteFormData } from './types/minute-form-data.type';
 
 export function MinuteForm() {
   const [date, setDate] = useState<Date | undefined>(new Date());
+  const [formValues, setFormValues] = useState<any>({});
 
   const form = useForm<MinuteFormData>({
     resolver: zodResolver(minuteFormSchema),
@@ -36,6 +38,24 @@ export function MinuteForm() {
     },
   });
 
+  useEffect(() => {
+    const subscription = form.watch((value) => {
+      setFormValues(value);
+    });
+    return () => subscription.unsubscribe();
+  }, [form.watch]);
+
+  // Função para processar edições de texto
+  const handleTextEdit = (newText: string) => {
+    // Aqui você implementaria a lógica para atualizar os campos do formulário
+    // com base no texto editado. Esta é uma implementação complexa que exigiria
+    // análise de texto e mapeamento para os campos específicos.
+    console.log(`Texto da ata foi editado:`, newText);
+
+    // Por simplicidade, apenas atualizamos o estado local
+    // Em uma implementação completa, você analisaria o texto e atualizaria os campos do formulário
+  };
+
   // Handle form submission
   function onSubmit(data: MinuteFormData) {
     console.log(data);
@@ -46,6 +66,8 @@ export function MinuteForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <MinuteTextPreview formData={formValues} onTextEdit={handleTextEdit} />
+
         <Tabs defaultValue="general-informations" className="w-full">
           <TabsList className="grid grid-cols-5 w-full">
             <TabsTrigger value="general-informations">
