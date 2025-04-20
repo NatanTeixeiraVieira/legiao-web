@@ -20,20 +20,20 @@ export function MinuteForm() {
 
   const form = useForm<MinuteFormData>({
     resolver: zodResolver(minuteFormSchema),
-    // defaultValues: {
-    //   parish: 'Paróquia Santos Anjos',
-    //   curia: 'Cúria Juvenil Nossa Senhora Rainha dos Anjos',
-    //   appointments: [],
-    //   treasury: {
-    //     contributions: [{ praesidium: '', amount: '' }],
-    //     expenses: [{ name: '', amount: '' }],
-    //   },
-    //   reports: [
-    //     {
-    //       otherPrayers: [{ name: '', amount: '' }],
-    //     },
-    //   ],
-    // },
+    defaultValues: {
+      parish: 'Paróquia Santos Anjos',
+      curia: 'Cúria Juvenil Nossa Senhora Rainha dos Anjos',
+      appointments: [],
+      treasury: {
+        contributions: [{ praesidium: '', amount: '' }],
+        expenses: [{ name: '', amount: '' }],
+      },
+      reports: [
+        {
+          otherPrayers: [{ name: '', amount: '' }],
+        },
+      ],
+    },
   });
 
   // Handle form submission

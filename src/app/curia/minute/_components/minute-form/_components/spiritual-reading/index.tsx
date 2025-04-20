@@ -114,8 +114,8 @@ export default function SpiritualReading({ form }: SpiritualReadingProps) {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="masculino">Masculino</SelectItem>
-                      <SelectItem value="feminino">Feminino</SelectItem>
+                      <SelectItem value="male">Masculino</SelectItem>
+                      <SelectItem value="female">Feminino</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
