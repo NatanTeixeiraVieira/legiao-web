@@ -1,13 +1,15 @@
 'use client';
 
+import { RichTextEditor } from '@/components/rich-text-editor';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Edit2, Save } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { fillTemplate, minuteTemplate } from '../../_utils/minute-template';
+import { MinuteFormData } from '../minute-form/types/minute-form-data.type';
 
 interface MinuteTextPreviewProps {
-  formData: any;
+  formData: MinuteFormData;
   onTextEdit: (text: string) => void;
 }
 
@@ -17,25 +19,35 @@ export function MinuteTextPreview({
 }: MinuteTextPreviewProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [fullText, setFullText] = useState('');
-  const textRef = useRef<HTMLDivElement>(null);
+  const [htmlContent, setHtmlContent] = useState('');
 
-  // Update text when form data changes
   useEffect(() => {
     if (!formData) return;
 
-    // Use the template to generate the minute text
-    const filledText = fillTemplate(minuteTemplate, formData);
-    setFullText(filledText);
-  }, [formData]);
+    const textoPreenchido = fillTemplate(minuteTemplate, formData);
+    setFullText(textoPreenchido);
+
+    if (!isEditing) {
+      const safeHtml = `<p>${textoPreenchido
+        .replace(/\n\n/g, '</p><p>')
+        .replace(/\n/g, '<br />')}</p>`;
+      setHtmlContent(safeHtml);
+    }
+  }, [formData, isEditing]);
 
   const handleSaveEdit = () => {
-    // Save manual edits
-    if (textRef.current) {
-      const newText = textRef.current.innerText;
-      onTextEdit(newText);
-      setFullText(newText);
-    }
     setIsEditing(false);
+
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = htmlContent;
+    const plainText = tempDiv.textContent || tempDiv.innerText || '';
+
+    onTextEdit(plainText);
+    setFullText(plainText);
+  };
+
+  const handleEditorChange = (html: string) => {
+    setHtmlContent(html);
   };
 
   return (
@@ -45,12 +57,7 @@ export function MinuteTextPreview({
           <h2 className="text-xl font-bold">Visualização da Ata</h2>
           <div className="flex gap-2">
             {isEditing ? (
-              <Button
-                onClick={handleSaveEdit}
-                variant="default"
-                size="sm"
-                type="button"
-              >
+              <Button onClick={handleSaveEdit} variant="default" size="sm">
                 <Save className="h-4 w-4 mr-2" /> Salvar Edições
               </Button>
             ) : (
@@ -58,7 +65,6 @@ export function MinuteTextPreview({
                 onClick={() => setIsEditing(true)}
                 variant="outline"
                 size="sm"
-                type="button"
               >
                 <Edit2 className="h-4 w-4 mr-2" /> Editar Texto
               </Button>
@@ -66,16 +72,12 @@ export function MinuteTextPreview({
           </div>
         </div>
 
-        <div
-          ref={textRef}
-          contentEditable={isEditing}
-          suppressContentEditableWarning={true}
-          className={`text-sm whitespace-pre-line ${
-            isEditing ? 'border p-4 rounded min-h-[200px]' : 'p-2'
-          }`}
-        >
-          {fullText}
-        </div>
+        <RichTextEditor
+          content={htmlContent}
+          onChange={handleEditorChange}
+          editable={isEditing}
+          className={isEditing ? '' : 'border-none p-0'}
+        />
       </CardContent>
     </Card>
   );
